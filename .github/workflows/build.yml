@@ -23,6 +23,8 @@ jobs:
       run: pnpm install
 
     - name: Build Pacman package
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: pnpm package --linux pacman
 
     - name: Upload Pacman package artifact
