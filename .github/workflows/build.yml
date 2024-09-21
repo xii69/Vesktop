@@ -1,0 +1,28 @@
+name: Build Vesktop Pacman Package
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install pnpm
+      run: npm install -g pnpm
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Build Pacman package
+      run: pnpm package --linux pacman
+
+    - name: Upload Pacman package artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: pacman-package
+        path: dist/
